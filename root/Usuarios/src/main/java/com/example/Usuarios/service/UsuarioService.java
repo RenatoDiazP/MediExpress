@@ -20,6 +20,10 @@ public class UsuarioService
 
     public Usuario guardarUsuario(Usuario usuario)
     {
+        if(usuarioRepository.findByCorreo(usuario.getCorreo()).isPresent())
+        {
+            throw new IllegalArgumentException("Este correo ya se encuentra registrado.");
+        }
         String claveEncriptada = encrypt.encode(usuario.getClave());
         usuario.setClave(claveEncriptada);
         return usuarioRepository.save(usuario);
