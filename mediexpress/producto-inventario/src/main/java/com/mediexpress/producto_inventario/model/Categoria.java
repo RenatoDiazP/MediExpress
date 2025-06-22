@@ -21,6 +21,6 @@ public class Categoria {
     @Column(name = "id_categoria")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nombre;
 }
