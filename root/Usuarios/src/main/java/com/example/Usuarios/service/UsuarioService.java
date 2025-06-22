@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.example.Usuarios.config.Encriptador;
 import com.example.Usuarios.model.Usuario;
 import com.example.Usuarios.repository.UsuarioRepository;
 
