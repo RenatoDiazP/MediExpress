@@ -1,7 +1,7 @@
 package com.mediexpress.incidencias_postventa.service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +20,11 @@ public class IncidenciaServiceImpl implements IncidenciaService {
     }
 
     @Override
-    public Optional<Incidencia> findById(Long id) {
-        return incidenciaRepository.findById(id);
-    }
+    public Incidencia findById(Long id) {
+    return incidenciaRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Incidencia no encontrada"));
+}
+
 
     @Override
     public Incidencia save(Incidencia incidencia) {

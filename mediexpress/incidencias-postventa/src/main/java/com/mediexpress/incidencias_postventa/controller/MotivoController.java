@@ -2,7 +2,6 @@ package com.mediexpress.incidencias_postventa.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,38 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mediexpress.incidencias_postventa.model.Incidencia;
-import com.mediexpress.incidencias_postventa.service.IncidenciaService;
+import com.mediexpress.incidencias_postventa.model.Motivo;
+import com.mediexpress.incidencias_postventa.service.MotivoService;
 
 @RestController
-@RequestMapping("api/incidencia")
-public class IncidenciaController {
+@RequestMapping("/api/motivo")
+public class MotivoController {
     @Autowired
-    private IncidenciaService incidenciaService;
+    private MotivoService motivoService;
 
     @GetMapping
-    public List<Incidencia> getAll() {
-        return incidenciaService.findAll();
+    public List<Motivo> getAll() {
+        return motivoService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Incidencia getById(@PathVariable Long id){
-        return incidenciaService.findById(id);
+    public Motivo getById(@PathVariable Long id) {
+        return motivoService.findById(id);
     }
 
     @PostMapping
-    public Incidencia create(@RequestBody Incidencia incidencia) {
-        return incidenciaService.save(incidencia);
+    public Motivo create(@RequestBody Motivo motivo) {
+        return motivoService.save(motivo);
     }
 
     @PutMapping("/{id}")
-    public Incidencia update(@PathVariable Long id, @RequestBody Incidencia updated) {
-        updated.setIdIncidencia(id);
-        return incidenciaService.save(updated);
+    public Motivo update(@PathVariable Long id, @RequestBody Motivo motivo) {
+        motivo.setIdMotivo(id);
+        return motivoService.save(motivo);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        incidenciaService.deleteById(id);
+        motivoService.deleteById(id);
     }
 }
+

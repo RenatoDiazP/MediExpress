@@ -34,4 +34,8 @@ public class Incidencia {
     private Estado estado;
 
     private String comentario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_motivo")
+    private Motivo motivo;
 }
