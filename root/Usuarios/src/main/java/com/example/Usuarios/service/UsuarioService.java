@@ -2,7 +2,6 @@ package com.example.Usuarios.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,13 +15,13 @@ public class UsuarioService
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private PasswordEncoder encrypt;
+    private PasswordEncoder encrypt; //Para encriptar
 
     public Usuario guardarUsuario(Usuario usuario)
     {
         if(usuarioRepository.findByCorreo(usuario.getCorreo()).isPresent())
         {
-            throw new IllegalArgumentException("Este correo ya se encuentra registrado.");
+            throw new IllegalArgumentException("Este correo ya se encuentra registrado."); //Verificacion por correo → Si el correo existe dentro de la base de datos, no se crea el usuario
         }
         String claveEncriptada = encrypt.encode(usuario.getClave());
         usuario.setClave(claveEncriptada);
