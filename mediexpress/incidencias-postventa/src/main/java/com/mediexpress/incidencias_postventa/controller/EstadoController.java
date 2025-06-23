@@ -2,7 +2,6 @@ package com.mediexpress.incidencias_postventa.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mediexpress.incidencias_postventa.model.Incidencia;
-import com.mediexpress.incidencias_postventa.service.IncidenciaService;
+import com.mediexpress.incidencias_postventa.model.Estado;
+import com.mediexpress.incidencias_postventa.service.EstadoService;
 
 @RestController
-@RequestMapping("api/incidencia")
-public class IncidenciaController {
+@RequestMapping("/api/estado")
+public class EstadoController {
     @Autowired
-    private IncidenciaService incidenciaService;
+    private EstadoService estadoService;
 
     @GetMapping
-    public List<Incidencia> getAll() {
-        return incidenciaService.findAll();
+    public List<Estado> getAll() {
+        return estadoService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Incidencia getById(@PathVariable Long id){
-        return incidenciaService.findById(id);
+    public Estado getById(@PathVariable Long id) {
+        return estadoService.findById(id);
     }
 
     @PostMapping
-    public Incidencia create(@RequestBody Incidencia incidencia) {
-        return incidenciaService.save(incidencia);
+    public Estado create(@RequestBody Estado estado) {
+        return estadoService.save(estado);
     }
 
     @PutMapping("/{id}")
-    public Incidencia update(@PathVariable Long id, @RequestBody Incidencia updated) {
-        updated.setIdIncidencia(id);
-        return incidenciaService.save(updated);
+    public Estado update(@PathVariable Long id, @RequestBody Estado estado) {
+        estado.setIdEstado(id);
+        return estadoService.save(estado);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        incidenciaService.deleteById(id);
+        estadoService.deleteById(id);
     }
 }

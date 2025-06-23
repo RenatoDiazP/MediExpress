@@ -23,6 +23,7 @@ public class CategoriaController {
     @Autowired
     private CategoriaService categoriaService;
 
+        // metodo get del controlador de categoria
     @GetMapping
     public ResponseEntity<List<Categoria>> listarCategorias() {
         return ResponseEntity.ok(categoriaService.obtenerTodas());

@@ -1,4 +1,4 @@
-package com.mediexpress.producto_inventario.model;
+package com.mediexpress.incidencias_postventa.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,16 +11,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "categoria")
+@Table(name = "motivo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Categoria {
+public class Motivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_categoria")
-    private Long id;
+    private Long idMotivo;
 
-    @Column(nullable = false, unique = true)
-    private String nombre;
+    @Column(nullable = false)
+    private String descripcion;
 }

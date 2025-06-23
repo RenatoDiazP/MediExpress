@@ -8,7 +8,8 @@ import com.mediexpress.resenas.model.Resena;
 public interface ResenaService {
     List<Resena> findAll();
     Optional<Resena> findById(Long id);
-    List<Resena> findByProductoId(Long idProd);
+    List<Resena> findByProductoId(Long idProducto);
+    double calcularReputacion(Long idProducto);
     Resena save(Resena resena);
     void deleteById(Long id);
 }

@@ -30,7 +30,7 @@ public class Resena {
     private Integer calificacion;
 
     @ManyToOne
-    @JoinColumn(name = "id_prod")
+    @JoinColumn(name = "id_producto")
     private Producto producto;
 
 }
