@@ -14,7 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Usuarios.model.Usuario;
 import com.example.Usuarios.service.UsuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -24,6 +29,11 @@ public class UsuarioController
     private UsuarioService usuarioService;
 
     @PostMapping
+    @Operation(summary = "Permite crear usuarios nuevos")
+    @ApiResponses(value=
+    {
+        @ApiResponse(responseCode = "200", description = "Se ha creado un usuario", content=@Content(schema=@Schema(implementation = Usuario.class)))
+    })
     public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario)
     {
         Usuario nuevoUsuario = usuarioService.guardarUsuario(usuario);
@@ -31,6 +41,7 @@ public class UsuarioController
     }
 
     @GetMapping
+    @Operation(summary = "Permite obtener una lista de los usuarios")
     public ResponseEntity<List<Usuario>> listarUsuarios()
     {
         return ResponseEntity.ok(usuarioService.listarUsuarios());
