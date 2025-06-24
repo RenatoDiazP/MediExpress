@@ -1,5 +1,6 @@
 package com.mediexpress.producto_inventario.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,10 +19,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Modelo de Fila")
 public class Fila {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_fila")
+    @Schema(name = "Id de la Fila")
     private Long id;
 
     @Column(nullable = false)

@@ -2,6 +2,7 @@ package com.mediexpress.admi_sistema.model;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,12 +21,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Modelo de Rol")
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "ID único del rol", example = "1")
     private Long id;
 
     @Column(nullable = false)
+    @Schema(description = "Nombre del rol", example = "ADMIN")
     private String nombre;
 
     @ManyToMany
@@ -34,5 +38,7 @@ public class Rol {
         joinColumns = @JoinColumn(name = "id_rol"),
         inverseJoinColumns = @JoinColumn(name = "id_privilegio")
     )
+
+    @Schema(description = "Lista de privilegios asociados al rol")
     private List<Privilegio> privilegios;
 }

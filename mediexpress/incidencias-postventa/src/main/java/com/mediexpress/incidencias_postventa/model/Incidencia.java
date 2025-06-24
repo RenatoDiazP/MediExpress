@@ -2,6 +2,7 @@ package com.mediexpress.incidencias_postventa.model;
 
 import java.time.LocalDate;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,9 +19,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(name = "Incidencia", description = "Representa una incidencia postventa relacionada con una venta")
 public class Incidencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(name = "idIncidencia", description = "ID de la incidencia")
     private Long idIncidencia;
 
     private LocalDate fechaInicio;

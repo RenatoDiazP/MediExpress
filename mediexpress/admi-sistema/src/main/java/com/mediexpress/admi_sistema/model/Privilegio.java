@@ -1,5 +1,6 @@
 package com.mediexpress.admi_sistema.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,15 +17,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "tabla de Privilegio")
 public class Privilegio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Schema(description = "Nombre del privilegio", example = "GESTION_USUARIOS")
     private String nombre;
 
     @ManyToOne
     @JoinColumn(name = "modulo_id")
+    @Schema(description = "Módulo al que pertenece el privilegio")
     private Modulo modulo;
 }
 
