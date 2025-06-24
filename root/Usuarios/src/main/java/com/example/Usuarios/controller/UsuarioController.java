@@ -50,6 +50,7 @@ public class UsuarioController
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Permite buscar usuarios por el ID")
     public ResponseEntity<Usuario> obtenerPorId(@PathVariable Long id)
     {
         return usuarioService.obtenerPorId(id)

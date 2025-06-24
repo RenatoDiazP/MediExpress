@@ -1,4 +1,4 @@
-package com.example.Ubicaciones.model;
+package com.example.ventas.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
@@ -14,24 +14,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "comunas")
+@Table(name = "detalle")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comunas
+public class Detalle
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_comuna", nullable = false)
-    @Schema(name = "Id de la Comuna")
-    private Long idComuna;
-
-    @Column(name = "nombre_comuna", nullable = false)
-    @Schema(name = "Nombre de la Comuna")
-    private String nombreComuna;
+    @Column(name = "id_detalle", nullable = false)
+    @Schema(name = "Id del Detalle")
+    private Long idDetalle;
 
     @ManyToOne
-    @JoinColumn(name = "id_region", nullable = false)
-    @Schema(name = "Region asociada a la Comuna")
-    private Regiones region;
+    @JoinColumn(name = "id_venta", nullable = false)
+    @Schema(name = "Id de la Venta asociada al Detalle")
+    private Venta venta;
+
+    @Column(name = "id_producto", nullable = false)
+    private Long idProducto;
+
+    @Column(name = "cantidad", nullable = false)
+    private Long cantidad;
+
+    @Column(name = "subtotal", nullable = false)
+    private Long subtotal;
 }
