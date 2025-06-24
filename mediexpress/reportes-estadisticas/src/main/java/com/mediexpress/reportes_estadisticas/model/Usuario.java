@@ -1,5 +1,6 @@
 package com.mediexpress.reportes_estadisticas.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,10 +16,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema( name = "tabla usuario", description = "Tabla que almacena los usuarios del sistema")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
+    @Schema(name = "codigo del usuario", description = "Identificador único del usuario")
     private Long id;
 
     private String nombre;
