@@ -42,4 +42,23 @@ public class UsuarioService
     {
         usuarioRepository.deleteById(Id);
     }
+
+    public String login(String correo, String clave)
+    {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByCorreo(correo);
+
+        if(usuarioOpt.isEmpty())
+        {
+            throw new IllegalArgumentException("Correo Incorrecto");
+        }
+
+        Usuario user = usuarioOpt.get();
+
+        if(!encrypt.matches(clave, user.getClave()))
+        {
+            throw new IllegalArgumentException("Contraseña Incorrecta");
+        }
+
+        return "Inicio de sesión exitoso";
+    }
 }
