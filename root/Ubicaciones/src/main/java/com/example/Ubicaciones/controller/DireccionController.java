@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Ubicaciones.model.Direccion;
 import com.example.Ubicaciones.service.DireccionService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/direcciones")
 public class DireccionController
@@ -24,12 +26,14 @@ public class DireccionController
     public DireccionService direccionService;
 
     @GetMapping
+    @Operation(summary = "Genera una lista con todas las direcciones")
     public List<Direccion> getAll()
     {
         return direccionService.findAll();
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Busca una direccion por ID")
     public ResponseEntity<Direccion> getById(@PathVariable Long id)
     {
         return direccionService.findById(id)
@@ -38,12 +42,14 @@ public class DireccionController
     }
 
     @PostMapping
+    @Operation(summary = "Guarda una direccion nueva")
     public Direccion create(@RequestBody Direccion direccion)
     {
         return direccionService.save(direccion);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Actualiza una direccion, buscandola por el ID")
     public ResponseEntity<Direccion> update(@PathVariable Long id, @RequestBody Direccion direccion)
     {
         if(!direccionService.findById(id).isPresent())
@@ -55,6 +61,7 @@ public class DireccionController
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Borra una direccion, buscandola por el ID")
     public ResponseEntity<Void> delete(@PathVariable Long id)
     {
         if(!direccionService.findById(id).isPresent())
