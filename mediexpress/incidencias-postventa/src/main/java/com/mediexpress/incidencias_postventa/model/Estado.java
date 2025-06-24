@@ -19,5 +19,6 @@ public class Estado {
     @Schema(name = "codigo del estado", description = "Identificador único del estado", example = "1")
     private Long idEstado;
 
+    @Schema(description = "Nombre del estado", example = "Pendiente")
     private String nombreEstado;
 }

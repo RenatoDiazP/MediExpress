@@ -30,15 +30,19 @@ public class Incidencia {
 
     @ManyToOne
     @JoinColumn(name = "id_venta")
+    @Schema(description = "Venta relacionada con esta incidencia")
     private Venta venta;
 
     @ManyToOne
     @JoinColumn(name = "id_estado")
+    @Schema(description = "Estado actual de la incidencia")
     private Estado estado;
 
+    @Schema(description = "Comentario del cliente sobre la incidencia", example = "El producto llegó dañado")
     private String comentario;
 
     @ManyToOne
     @JoinColumn(name = "id_motivo")
+    @Schema(name = "motivo", description = "Motivo asociado a la incidencia")
     private Motivo motivo;
 }

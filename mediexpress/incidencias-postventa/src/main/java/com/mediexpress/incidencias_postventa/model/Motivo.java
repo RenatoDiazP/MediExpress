@@ -24,5 +24,6 @@ public class Motivo {
     private Long idMotivo;
 
     @Column(nullable = false)
+    @Schema(description = "Descripción del motivo", example = "Producto defectuoso")
     private String descripcion;
 }
