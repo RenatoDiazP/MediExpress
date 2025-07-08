@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ventas.model.Venta;
 import com.example.ventas.service.VentaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/ventas")
 public class VentaController
@@ -24,12 +26,14 @@ public class VentaController
     public VentaService ventaService;
 
     @GetMapping
+    @Operation(summary = "Genera una lista con todas las ventas")
     public List<Venta> getAll() 
     {
         return ventaService.findAll();
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Busca una venta por ID")
     public ResponseEntity<Venta> getById(@PathVariable Long id)
     {
         return ventaService.findById(id)
@@ -38,12 +42,14 @@ public class VentaController
     }
 
     @PostMapping
+    @Operation(summary = "Guarda una venta nueva")
     public Venta create(@RequestBody Venta venta)
     {
         return ventaService.save(venta);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Actualiza una venta, buscandola por ID")
     public ResponseEntity<Venta> update(@PathVariable Long id, @RequestBody Venta venta)
     {
         if (!ventaService.findById(id).isPresent()) {
@@ -54,6 +60,7 @@ public class VentaController
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Borra una venta, buscandola por ID")
     public ResponseEntity<Void> delete(@PathVariable Long id)
     {
         if (!ventaService.findById(id).isPresent())
