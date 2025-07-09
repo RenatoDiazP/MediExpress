@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 import com.example.Usuarios.model.Usuario;
 import com.example.Usuarios.service.UsuarioService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
@@ -34,7 +34,8 @@ public class UsuarioController
     @Operation(summary = "Permite crear usuarios nuevos")
     @ApiResponses(value=
     {
-        @ApiResponse(responseCode = "200", description = "Se ha creado un usuario", content=@Content(schema=@Schema(implementation = Usuario.class)))
+        @ApiResponse(responseCode = "201", description = "Se ha creado un usuario", content=@Content(schema=@Schema(implementation = Usuario.class))),
+        @ApiResponse(responseCode = "400", description = "No se pudo crear un usuario, revise los datos")
     })
     public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario)
     {
@@ -44,6 +45,10 @@ public class UsuarioController
 
     @GetMapping
     @Operation(summary = "Permite obtener una lista de los usuarios")
+    @ApiResponses(value=
+    {
+        @ApiResponse(responseCode = "200", description = "Lista de los usuarios obtenida correctamente", content=@Content(schema=@Schema(implementation = Usuario.class)))
+    })
     public ResponseEntity<List<Usuario>> listarUsuarios()
     {
         return ResponseEntity.ok(usuarioService.listarUsuarios());
@@ -51,6 +56,11 @@ public class UsuarioController
 
     @GetMapping("/{id}")
     @Operation(summary = "Permite buscar usuarios por el ID")
+    @ApiResponses(value = 
+    {
+        @ApiResponse(responseCode = "200", description = "Usuario encontrado", content = @Content(schema=@Schema(implementation = Usuario.class))),
+        @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    })
     public ResponseEntity<Usuario> obtenerPorId(@PathVariable Long id)
     {
         return usuarioService.obtenerPorId(id)
@@ -59,6 +69,12 @@ public class UsuarioController
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Elimina a un usuario, buscandolo por el Id")
+    @ApiResponses(value =
+    {
+        @ApiResponse(responseCode = "200", description = "Usuario eliminado con exito"),
+        @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    })
     public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id)
     {
         usuarioService.eliminarUsuario(id);

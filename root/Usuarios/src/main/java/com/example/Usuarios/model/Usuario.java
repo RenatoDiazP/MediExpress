@@ -28,9 +28,11 @@ public class Usuario
     private Long idUsuario;
 
     @Column(nullable=false)
+    @Schema(name = "Correo del usuario")
     private String correo;
 
     @Column(nullable = false)
+    @Schema(name = "Clave del usuario (Encriptada)")
     private String clave;
 
     @ManyToOne

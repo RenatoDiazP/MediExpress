@@ -28,8 +28,8 @@ public class Encriptador
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
                     "/swagger-ui.html"
-                ).permitAll()
-                .anyRequest().authenticated()
+                ).permitAll() // Para Swagger, USAR HTTP NO HTTPS
+                .anyRequest().permitAll() // Para Postman
             )
             .httpBasic(Customizer.withDefaults());
 
