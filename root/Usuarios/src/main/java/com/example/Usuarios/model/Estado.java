@@ -20,7 +20,7 @@ public class Estado
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_estado")
+    @Column(name = "id_estado", nullable = false)
     @Schema(name = "Id del Estado")
     private Long idEstado;
 

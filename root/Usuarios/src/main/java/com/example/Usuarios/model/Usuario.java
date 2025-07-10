@@ -27,11 +27,11 @@ public class Usuario
     @Schema(name = "Id del Usuario")
     private Long idUsuario;
 
-    @Column(nullable=false)
+    @Column(name = "correo",nullable=false)
     @Schema(name = "Correo del usuario")
     private String correo;
 
-    @Column(nullable = false)
+    @Column(name = "clave",nullable = false)
     @Schema(name = "Clave del usuario (Encriptada)")
     private String clave;
 

@@ -1,5 +1,6 @@
 package com.example.Usuarios.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import com.example.Usuarios.model.Notificacion;
 import com.example.Usuarios.model.Usuario;
 import com.example.Usuarios.service.UsuarioService;
 
@@ -29,6 +33,9 @@ public class UsuarioController
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @PostMapping
     @Operation(summary = "Permite crear usuarios nuevos")
@@ -66,6 +73,26 @@ public class UsuarioController
         return usuarioService.obtenerPorId(id)
         .map(ResponseEntity::ok)
         .orElse(ResponseEntity.notFound().build());   
+    }
+
+    @GetMapping("/{id}/notificaciones")
+    public ResponseEntity<List<Notificacion>> obtenerNotificaciones(@PathVariable Long id)
+    {
+        String url = "http://localhost:8082/notificaciones/usuario/" + id;
+
+        try 
+        {
+            ResponseEntity<Notificacion[]> response = restTemplate.getForEntity(url, Notificacion[].class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                List<Notificacion> notificaciones = Arrays.asList(response.getBody());
+                return ResponseEntity.ok(notificaciones);
+            } else {
+                return ResponseEntity.status(response.getStatusCode()).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(null);
+        }
     }
 
     @DeleteMapping("/{id}")
