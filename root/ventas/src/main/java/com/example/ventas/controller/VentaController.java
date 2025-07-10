@@ -55,7 +55,7 @@ public class VentaController
         if (!ventaService.findById(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        venta.setIdVenta(id);
+        venta.setId(id);
         return ResponseEntity.ok(ventaService.save(venta));
     }
 

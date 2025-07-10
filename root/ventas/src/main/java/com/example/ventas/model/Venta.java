@@ -21,13 +21,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(name = "Tabla de Ventas")
 public class Venta
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_venta", nullable = false)
     @Schema(name = "Id de la Venta")
-    private Long idVenta;
+    private Long id;
 
     @Column(name = "fecha_venta", nullable = false)
     private String fechaVenta;

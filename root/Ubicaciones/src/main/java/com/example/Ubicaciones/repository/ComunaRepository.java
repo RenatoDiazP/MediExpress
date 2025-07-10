@@ -8,5 +8,5 @@ import com.example.Ubicaciones.model.Comunas;
 @Repository
 public interface ComunaRepository extends JpaRepository<Comunas, Long>
 {
-
+    
 }

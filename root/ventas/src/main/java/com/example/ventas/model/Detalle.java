@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(name = "Tabla de Detalle")
 public class Detalle
 {
     @Id

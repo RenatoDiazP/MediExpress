@@ -24,7 +24,7 @@ public class Comunas
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_comuna", nullable = false)
     @Schema(name = "Id de la Comuna")
-    private Long idComuna;
+    private Long id;
 
     @Column(name = "nombre_comuna", nullable = false)
     @Schema(name = "Nombre de la Comuna")
