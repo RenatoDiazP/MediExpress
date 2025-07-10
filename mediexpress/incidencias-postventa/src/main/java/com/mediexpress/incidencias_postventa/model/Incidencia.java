@@ -30,8 +30,8 @@ public class Incidencia {
 
     @ManyToOne
     @JoinColumn(name = "id_venta")
-    @Schema(description = "Venta relacionada con esta incidencia")
-    private Venta venta;
+    @Schema(description = "Venta relacionada con esta incidencia", example = "12345")
+    private Long idVenta;
 
     @ManyToOne
     @JoinColumn(name = "id_estado")

@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,28 +24,42 @@ public class IncidenciaController {
     private IncidenciaService incidenciaService;
 
     @GetMapping
-    public List<Incidencia> getAll() {
-        return incidenciaService.findAll();
+    public ResponseEntity<List<Incidencia>> getAll() {
+        List<Incidencia> incidencias = incidenciaService.findAll();
+        return incidencias.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(incidencias);
     }
 
     @GetMapping("/{id}")
-    public Incidencia getById(@PathVariable Long id){
-        return incidenciaService.findById(id);
+    public ResponseEntity<Incidencia> getById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(incidenciaService.findById(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
-    public Incidencia create(@RequestBody Incidencia incidencia) {
-        return incidenciaService.save(incidencia);
+    public ResponseEntity<Incidencia> create(@RequestBody Incidencia incidencia) {
+        return ResponseEntity.status(201).body(incidenciaService.save(incidencia));
     }
 
     @PutMapping("/{id}")
-    public Incidencia update(@PathVariable Long id, @RequestBody Incidencia updated) {
-        updated.setIdIncidencia(id);
-        return incidenciaService.save(updated);
+    public ResponseEntity<Incidencia> update(@PathVariable Long id, @RequestBody Incidencia updated) {
+        try {
+            updated.setIdIncidencia(id);
+            return ResponseEntity.ok(incidenciaService.save(updated));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        incidenciaService.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        try {
+            incidenciaService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

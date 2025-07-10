@@ -3,6 +3,7 @@ package com.mediexpress.incidencias_postventa.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mediexpress.incidencias_postventa.model.Motivo;
 import com.mediexpress.incidencias_postventa.service.MotivoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/motivo")
 public class MotivoController {
@@ -22,29 +25,43 @@ public class MotivoController {
     private MotivoService motivoService;
 
     @GetMapping
-    public List<Motivo> getAll() {
-        return motivoService.findAll();
+    public ResponseEntity<List<Motivo>> getAll() {
+        List<Motivo> motivos = motivoService.findAll();
+        return motivos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(motivos);
     }
 
     @GetMapping("/{id}")
-    public Motivo getById(@PathVariable Long id) {
-        return motivoService.findById(id);
+    public ResponseEntity<Motivo> getById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(motivoService.findById(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
-    public Motivo create(@RequestBody Motivo motivo) {
-        return motivoService.save(motivo);
+    public ResponseEntity<Motivo> create(@Valid @RequestBody Motivo motivo) {
+        return ResponseEntity.status(201).body(motivoService.save(motivo));
     }
 
     @PutMapping("/{id}")
-    public Motivo update(@PathVariable Long id, @RequestBody Motivo motivo) {
-        motivo.setIdMotivo(id);
-        return motivoService.save(motivo);
+    public ResponseEntity<Motivo> update(@PathVariable Long id, @Valid @RequestBody Motivo motivo) {
+        try {
+            motivo.setIdMotivo(id);
+            return ResponseEntity.ok(motivoService.save(motivo));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        motivoService.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        try {
+            motivoService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
 
